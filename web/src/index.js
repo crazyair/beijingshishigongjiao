@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import {render} from 'react-dom'
 import App from './components/Main';
 import Store from './stores/Store';
-import {Router, Route, Link, browserHistory} from 'react-router'
+import {Router, Route, Link, hashHistory} from 'react-router'
 
 const store = new Store();
 
@@ -40,7 +40,7 @@ const User = React.createClass({
 
 
 render((
-  <Router history={browserHistory}>
+  <Router history={hashHistory}>
     <Route path="/" component={Users}>
       <Route path="users" component={Users}>
         <Route path="/user/:userId" component={User}/>
