@@ -14,7 +14,7 @@ app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
     res.header('Access-Control-Allow-Credentials', true);//告诉客户端可以在HTTP请求中带上Cookie
     // res.header("X-Powered-By", ' 3.2.1')
-    res.header("X-Powered-By", 'PHP/5.2.5')
+    res.header("X-Powered-By", 'PHP/5.2.5');
     res.header("Content-Type", "application/json;charset=utf-8");
     // res.header("Content-Type", "text/html");
     res.header("Pragma", "no-cache");

@@ -15,9 +15,10 @@ class List {
   }
 
   @action getList() {
-    http.get('/test').then(function (data) {
-      console.log('data', data);
-    });
+    // http.get('/test').then(function (data) {
+    //   console.log('data', data);
+    // });
+    console.log('11', http.get('/test'));
   }
 }
 

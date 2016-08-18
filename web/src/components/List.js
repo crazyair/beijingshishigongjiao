@@ -13,11 +13,11 @@ class List extends React.Component {
 
   click() {
     console.log('    this.store', this.store);
-    this.store.clickButton();
+    this.store.getList();
   }
 
   componentWillMount() {
-    console.log('this', this.props);
+    console.log('this', this.props,this.store);
   }
 
   render() {
