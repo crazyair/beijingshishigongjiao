@@ -115,7 +115,7 @@ app.get('/test', function (req, res, next) {
     })
 
 
-    let data = {
+    const data = {
         numRoad: $('.inquiry_header #lh').text()
         , numRoadDec: $('.inner #lm').text()
         , numRoadDec2: $('.inner article').text()
