@@ -8,7 +8,7 @@ if (env.isDev) {
   baseUrl = 'http://localhost:8081';
 }
 if (env.isProduction) {
-  baseUrl = 'http://121.42.55.211:8100';
+  baseUrl = 'https://afternoon-everglades-19740.herokuapp.com';
 }
 
 let instance = axios.create({
