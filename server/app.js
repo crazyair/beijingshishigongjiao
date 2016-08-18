@@ -22,7 +22,7 @@ app.all('*', function (req, res, next) {
     next();
 });
 
-app.get('/', function (req, res, next) {
+app.get('/api', function (req, res, next) {
     superagent.get('https://cnodejs.org/')
         .end(function (err, sres) {
             if (err) {
