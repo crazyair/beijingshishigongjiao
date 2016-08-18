@@ -1,5 +1,6 @@
 import axios from 'axios';
-// import Storage from  'react-storage';
+import {get,set} from '../utils/local';
+
 import {browserHistory} from 'react-router'
 
 import * as env from '../utils/env'
@@ -14,7 +15,7 @@ if (env.isProduction) {
 let instance = axios.create({
   baseURL: baseUrl,
   timeout: 1000 * 10,
-  // headers: {'tokenId': 'ididid'},
+  headers: {'ck': 'cookie'},
   validateStatus: status => {
     // 如果是200和299之间 就不处理后面
     if (status >= 200 && status < 300) {
@@ -70,7 +71,7 @@ instance.interceptors.response.use(function (response) {
 
 const http = {
   init() {
-    instance.defaults.headers = {'tokenId': 1};
+    // instance.defaults.headers = {'ck': 12222};
   },
   get(url, data) {
     this.init();
