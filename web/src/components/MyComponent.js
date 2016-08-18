@@ -6,6 +6,7 @@ import {observer} from 'mobx-react';
 
 
 function MyComponent({store}) {
+  console.log('aaaaaaaaaa', store);
   const clickButton=store.clickButton.bind(store);
   return (
     <div>

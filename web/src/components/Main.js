@@ -8,8 +8,13 @@ let yeomanImage = require('../images/yeoman.png');
 @observer
 class AppComponent extends React.Component {
   constructor(props) {
+    console.log('props', props);
+
     super(props);
     this.store = props.store;
+  }
+  componentWillMount(){
+    console.log('this', this.props);
   }
 
   render() {

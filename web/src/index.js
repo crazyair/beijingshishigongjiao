@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom';
 import {render} from 'react-dom'
 import App from './components/Main';
 import Store from './stores/Store';
-import {Router, Route, Link, hashHistory} from 'react-router'
-
+import {Router, Route, Link, hashHistory} from 'react-router';
+import {createHashHistory} from 'history'
+import {List} from './containers';
 const store = new Store();
-
 
 const Users = React.createClass({
   render() {
@@ -37,17 +37,22 @@ const User = React.createClass({
     )
   }
 });
+class test extends React.Component {
+  render() {
+    return (
+      <App store={store}/>
+    )
+  }
+}
 
 
 render((
   <Router history={hashHistory}>
-    <Route path="/" component={Users}>
-      <Route path="users" component={Users}>
+    <Route path="/">
+      <Route path="list" component={List}/>
+      <Route path="test" component={test}>
         <Route path="/user/:userId" component={User}/>
       </Route>
     </Route>
   </Router>
 ), document.getElementById('app'));
-
-
-{/*ReactDOM.render(<App store={store}/>, document.getElementById('app'));*/}
