@@ -81,7 +81,7 @@ app.get('/bj', function (req, res, next) {
             const html = JSON.parse(sres.text).html;
             const $ = cheerio.load(html);
             // console.log($('.inquiry_header #lh').text())
-            const data = {
+            let data = {
                 numRoad: $('.inquiry_header #lh').text()
                 , numRoadDec: $('.inner #lm').text()
                 , numRoadDec2: $('.inner article').text()
