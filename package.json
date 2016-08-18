@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "gh": "git subtree push --prefix=web/dist origin gh-pages"
+    "gh": "git subtree push --prefix=web/dist origin gh-pages",
+    "publish": "git subtree push --prefix=server heroku master"
   },
   "repository": {
     "type": "git",
