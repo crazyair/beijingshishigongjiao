@@ -1,0 +1,23 @@
+{
+  "name": "beijingshishigongjiao",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gh": "git subtree push --prefix=web/dist origin gh-pages"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qq645381995/beijingshishigongjiao.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qq645381995/beijingshishigongjiao/issues"
+  },
+  "homepage": "https://github.com/qq645381995/beijingshishigongjiao#readme",
+  "dependencies": {
+    "superagent": "^2.2.0"
+  }
+}
