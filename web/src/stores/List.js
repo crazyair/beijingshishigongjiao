@@ -1,5 +1,6 @@
 import {observable, computed, action} from  'mobx';
 // import http from '../api';
+import {get, set} from '../utils/local';
 import http from '../api/axios';
 
 class List {
@@ -7,14 +8,15 @@ class List {
 
   @observable list = [];
 
-  @action getCookie() {
-    http.get('get').then(function (data) {
+  @action getCk() {
+    http.get('getCk').then(function (data) {
       console.log('data', data);
+      set('ck', data.data.ck);
     })
   }
 
   @action getList() {
-    http.get('/test').then(function (data) {
+    http.get('/getLine', { act: 'getLineDirOption', selBLine: 1 }).then(function (data) {
       console.log('data', data);
     });
     // console.log('11', http.get('/test'));
@@ -23,4 +25,4 @@ class List {
 }
 
 
-export default  List;
+export default List;

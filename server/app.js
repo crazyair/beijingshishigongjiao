@@ -4,8 +4,8 @@ const app = Server.app();
 
 const cheerio = require('cheerio');
 const superagent = require('superagent');
+const url = require('url');
 
-var ck = '';
 
 app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -46,7 +46,7 @@ app.get('/api', function (req, res, next) {
         });
 });
 
-app.get('/get', function (req, res, next) {
+app.get('/getCk', function (req, res, next) {
     getCk(req, res, next);
 });
 function getCk(req, res, next) {
@@ -55,19 +55,46 @@ function getCk(req, res, next) {
             if (err) {
                 return next(err);
             }
-            console.log(111, sres.header['set-cookie']);
-            ck = sres.header['set-cookie'];
+            var ck = sres.header['set-cookie'];
             ck = ck.join('').replace('path=/', '').replace('Path=/', '');
-            res.send(sres.header);
+
+            var $ = cheerio.load(sres.text);
+            var items = [];
+            $('#selBLine a').each(function (idx, element) {
+                items.push({
+                    id: idx + 1,
+                    name: $(element).text(),
+                });
+            });
+            res.send({
+                ck: ck,
+                line: items
+            });
         });
 }
+var baseUrl = 'http://www.bjbus.com/home/ajax_search_bus_stop_token.php';
+function get(params, ck) {
+    return superagent.get(baseUrl + params)
+        .withCredentials()
+        // .send(data)
+        .set('X-Requested-With', 'XMLHttpRequest')
+        .set('Cookie', ck)
+    // .set('Cookie', 'PHPSESSID=9432236721e4a494ea6ed43dadca5f20; Hm_lvt_2c630339360dacc1fc1fd8110f283748=1470921596,1471007656,1471445682,1471529338; Hm_lpvt_2c630339360dacc1fc1fd8110f283748=1471530718; SERVERID=b6e721ca8fa8f1065ade14ce5cd80b3a|1471530723|1471530705')
+}
+
+app.get('/getLine', function (req, res, next) {
+    const ck = req.headers.ck;
+    const params = url.parse(req.url).search;
+    get(params, ck)
+        .end(function (err, sres) {
+            res.send(sres);
+        })
+})
+
 app.get('/bj', function (req, res, next) {
-    // console.log(req);
-    // console.log(req.query);
     superagent.get('http://www.bjbus.com/home/ajax_search_bus_stop_token.php?act=busTime&selBLine=1&selBDir=5276138694316562750&selBStop=1')
         .withCredentials()
         .set('X-Requested-With', 'XMLHttpRequest')
-        // .set('Cookie', 'PHPSESSID=4a1b39ebfed819523e27ee4f728dfdaf; SERVERID=ebcde74858922aec8aaf8fb40aed60362;')
         // .set('Cookie', ck)
         .set('Cookie', 'PHPSESSID=056407d382622455fe967c07d973efa7;SERVERID=b6e721ca8fa8f1065ade14ce5cd80b3a|1471708800|1471536000;Hm_lpvt_2c630339360dacc1fc1fd8110f283748=1471405742;Hm_lvt_2c630339360dacc1fc1fd8110f283748=1470987371,1471397218')
         .set('user-agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36')

@@ -12,12 +12,15 @@ class List extends React.Component {
   }
 
   click() {
-    console.log('    this.store', this.store);
+    this.store.getCk();
+  }
+
+  click2() {
     this.store.getList();
   }
 
   componentWillMount() {
-    console.log('this', this.props,this.store);
+    console.log('this', this.props, this.store);
   }
 
   render() {
@@ -25,7 +28,8 @@ class List extends React.Component {
       <div className="index">
         <img src={yeomanImage} alt="Yeoman Generator"/>
         <h2>{this.store.name}</h2>
-        <button onClick={this.click.bind(this)}>点我</button>
+        <button onClick={this.click.bind(this) }>点我ck</button>
+        <button onClick={this.click2.bind(this) }>点我获取线路 </button>
         <h4>{this.store.numClicks}</h4>
       </div>
     );
