@@ -2,25 +2,15 @@ require('normalize.css/normalize.css');
 require('styles/App.css');
 
 import React from 'react';
-import superagent  from 'superagent';
 
 let yeomanImage = require('../images/yeoman.png');
 
 class AppComponent extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-
-  }
-
-  componentWillMount() {
-    superagent.get('http://localhost:8080/bj').end(function(err,data){
-      // console.log(JSON.parse(JSON.parse(data.text).text).html);
-    })
-  }
   render() {
     return (
-      <div >
-        
+      <div className="index">
+        <img src={yeomanImage} alt="Yeoman Generator" />
+        <div className="notice">Please edit <code>src/components/Main.js</code> to get started!</div>
       </div>
     );
   }
