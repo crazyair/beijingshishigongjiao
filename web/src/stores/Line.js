@@ -12,16 +12,16 @@ class Line {
   @observable selBDir = 0;
   @observable selBStop = 0;
 
-  @action getCk() {
-    const _this = this;
-    if (!get('ck')) {
-      http.get('getCk').then(function (data) {
-        set('ck', data.data);
-        _this.ckData = data.data;
-      })
-    }
-    this.ckData = get('ck');
-  }
+  // @action getCk() {
+  //   const _this = this;
+  //   if (!get('ck')) {
+  //     http.get('getCk').then(function (data) {
+  //       set('ck', data.data);
+  //       _this.ckData = data.data;
+  //     })
+  //   }
+  //   this.ckData = get('ck');
+  // }
 
   @action getLine(selBLine) {
     const _this = this;

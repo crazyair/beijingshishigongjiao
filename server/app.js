@@ -114,6 +114,8 @@ app.get('/getLine', function (req, res, next) {
                 })
             }
             if (type == 'busTime') {
+                const html = JSON.parse(sres.text).html;
+                $ = cheerio.load(html);
                 const lists = $('.inquiry_main .fixed li');
                 const items = [];
                 lists.each(function (i, element) {
@@ -132,10 +134,10 @@ app.get('/getLine', function (req, res, next) {
                     }
                 })
                 const dataBus = {
-                    numRoad: $('.inquiry_header #lh').text()
-                    , numRoadDec: $('.inner #lm').text()
-                    , numRoadDec2: $('.inner article').text()
-                    , numRoadList: items
+                    road: $('.inquiry_header #lh').text()
+                    , roadName: $('.inner #lm').text()
+                    , roadMsg: $('.inner article').text()
+                    , list: items
                 }
                 return res.send(JSON.stringify(dataBus));
             }

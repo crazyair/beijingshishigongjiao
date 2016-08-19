@@ -22,11 +22,11 @@ class Main {
     }
   }
 
-  @action getLine(type, lineNum) {
-    http.get('/getLine', {act: 'getLineDirOption', selBLine: lineNum}).then(function (data) {
-      console.log('data', data);
-    });
-  }
+  // @action getLine(type, lineNum) {
+  //   http.get('/getLine', {act: 'getLineDirOption', selBLine: lineNum}).then(function (data) {
+  //     console.log('data', data);
+  //   });
+  // }
 }
 
 
