@@ -1,34 +1,84 @@
-require('normalize.css/normalize.css');
-require('styles/App.css');
-
 import React from 'react';
-import { observer} from 'mobx-react';
-import MyComponent from './MyComponent';
-let yeomanImage = require('../images/yeoman.png');
-@observer
-class AppComponent extends React.Component {
-  constructor(props) {
-    console.log('props', props);
+import {observer} from 'mobx-react';
+import {SearchBar, List} from 'antd-mobile';
+import {createForm} from 'rc-form';
 
+@observer
+class Main extends React.Component {
+  constructor(props) {
     super(props);
     this.store = props.store;
+    this.state = {
+      list: []
+    };
   }
-  componentWillMount(){
-    console.log('this', this.props);
+
+  componentWillMount() {
+    this.store.getCk();
+  }
+
+  onSearch(value) {
+    const data = _.filter(this.store.ckData.line, function (n) {
+      if (eval('/.*?(' + value + ').*?/g').test(n.name)) {
+        return n;
+      }
+    });
+    this.state.list = data;
+    this.setState({list: this.state.list});
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('1', 1);
   }
 
   render() {
+    const {getFieldProps} = this.props.form;
+    let ck = '';
+    if (this.store.ckData) {
+      ck = this.store.ckData.ck;
+    }
     return (
-      <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />
-        <h2>{this.store.name}</h2>
-        <h3>{this.store.description}</h3>
-        <MyComponent store={this.store}/>
+      <div >
+        <SearchBar
+          placeholder='请输入公交'
+          onSubmit={(value) => {
+            console.log(`onSubmit${value}`);
+          }}
+          onClear={() => {
+            {/*console.log('onClear');*/
+            }
+          }}
+          onCancel={() => {
+            {/*console.log('onCancel');*/
+            }
+          }}
+          onFocus={() => {
+            {/*console.log('onFocus');*/
+            }
+          }}
+          onBlur={() => {
+            {/*console.log('onBlur');*/
+            }
+          }}
+          onChange={(value)=>this.onSearch(value)}
+        />
+        <List>
+          <List.Header>查找</List.Header>
+          <List.Body>
+            {this.state.list.map((item, index) =>
+              <List.Item key={index} extra={''} arrow="horizontal" onClick={() => {
+              }}>{item.name}
+              </List.Item>
+            )}
+          </List.Body>
+        </List>
       </div>
     );
   }
 }
 
-AppComponent.defaultProps = {};
+Main.defaultProps = {};
+Main = createForm()(Main);
 
-export default AppComponent;
+export default Main;

@@ -8,12 +8,6 @@ class List {
 
   @observable list = [];
 
-  @action getCk() {
-    http.get('getCk').then(function (data) {
-      console.log('data', data);
-      set('ck', data.data.ck);
-    })
-  }
 
   @action getList() {
     http.get('/getLine', { act: 'getLineDirOption', selBLine: 1 }).then(function (data) {

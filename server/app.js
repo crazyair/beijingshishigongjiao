@@ -89,7 +89,7 @@ app.get('/getLine', function (req, res, next) {
         .end(function (err, sres) {
             res.send(sres);
         })
-})
+});
 
 app.get('/bj', function (req, res, next) {
     superagent.get('http://www.bjbus.com/home/ajax_search_bus_stop_token.php?act=busTime&selBLine=1&selBDir=5276138694316562750&selBStop=1')
