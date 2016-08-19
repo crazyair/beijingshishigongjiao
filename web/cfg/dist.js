@@ -10,7 +10,10 @@ let defaultSettings = require('./defaults');
 let BowerWebpackPlugin = require('bower-webpack-plugin');
 
 let config = Object.assign({}, baseConfig, {
-  entry: path.join(__dirname, '../src/index'),
+  entry:{
+    app:path.join(__dirname, '../src/index'),
+    vendor:['react','react-dom','react-router','lodash','axios','react-storage']
+  },
   cache: false,
   // devtool: 'sourcemap',
   devtool: false,
@@ -22,6 +25,7 @@ let config = Object.assign({}, baseConfig, {
     new BowerWebpackPlugin({
       searchResolveModulesDirectories: false
     }),
+    new webpack.optimize.CommonsChunkPlugin('vendor',  'vendor.js'),// ('vendor','vendor.[hash:8].js')  可以加上hash
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),

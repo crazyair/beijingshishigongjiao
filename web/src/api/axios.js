@@ -14,7 +14,7 @@ if (env.isProduction) {
 
 let instance = axios.create({
   baseURL: baseUrl,
-  timeout: 1000 * 10,
+  timeout: 1000 * 50,
   headers: {'ck': get('ck')||''},
   validateStatus: status => {
     // 如果是200和299之间 就不处理后面
