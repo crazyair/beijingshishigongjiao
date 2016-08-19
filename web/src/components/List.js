@@ -1,13 +1,9 @@
 require('normalize.css/normalize.css');
 require('styles/App.css');
-// import 'amazeui-touch/dist/amazeui.touch.min.css';
 import React from 'react';
 import {observer} from 'mobx-react';
-// import {
-//   Button
-// } from 'amazeui-touch';
-import 'antd-mobile/lib/button/style';
-import Button from 'antd-mobile/lib/button';
+
+import {Button} from 'antd-mobile';
 let yeomanImage = require('../images/yeoman.png');
 @observer
 class List extends React.Component {
@@ -30,8 +26,7 @@ class List extends React.Component {
 
   render() {
     return (
-      <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator"/>
+      <div >
         <h2>{this.store.name}</h2>
         <button onClick={this.click.bind(this) }>点我ck</button>
         <button onClick={this.click2.bind(this) }>点我获取线路</button>
