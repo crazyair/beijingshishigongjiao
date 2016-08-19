@@ -22,11 +22,11 @@ class Line extends React.Component {
   }
 
   callback(e) {
-    this.store.getList(this.props.params.id, e);
+    this.store.getList(e);
   }
 
   goClick(item, e) {
-    this.store.goOn(this.props.params.id,item.id);
+    this.store.goOn(item.id);
   }
 
   render() {

@@ -5,64 +5,44 @@ import http from '../api/axios';
 class Line {
   name = 'Line';
   //上下行名字
-  @observable list = [];
+  @observable list = []; //公交上下行名字
+  @observable listLine = [];//公交站牌List
 
-  @observable listLine = [];
+  //参数
+  @observable selBLine = 0;//公交线路
+  @observable selBDir = 0;//上下行的Id
+  @observable selBStop = 0;//上车的站牌Id
 
-  @observable selBDir = 0;
-  @observable selBStop = 0;
-
-  // @action getCk() {
-  //   const _this = this;
-  //   if (!get('ck')) {
-  //     http.get('getCk').then(function (data) {
-  //       set('ck', data.data);
-  //       _this.ckData = data.data;
-  //     })
-  //   }
-  //   this.ckData = get('ck');
-  // }
-
+  //获取公交上下行数据
   @action getLine(selBLine) {
+    this.selBLine = selBLine;
     const _this = this;
-    http.get('/getLine', {act: 'getLineDirOption', selBLine: selBLine}).then(function (data) {
-      const d = [];
-      data.data.map((item, index)=> {
-        d.push({
-          id: item.id,
-          name: item.name
-        })
-      });
-      _this.list = d;
-      _this.getList(selBLine, data.data[0].id);
+    http.get('/getLine', {act: 'getLineDirOption', selBLine: _this.selBLine}).then(function (data) {
+      _this.list = data.data;
+      _this.selBDir = data.data[0].id;
+      _this.getList(_this.selBDir);
+      // _this.goOn(5);
     });
   }
 
-  @action getList(selBLine, selBDir) {
+  //获取上下行Id
+  @action getList(selBDir) {
+    const _this = this;
     this.selBDir = selBDir;
-    const _this = this;
-    // http.get('/getLine', {act: 'getDirStationOption', selBLine: selBLine, selBDir: selBDir}).then(function (data) {
-    //   const d = [];
-    //   data.data.map((item, index)=> {
-    //     d.push({
-    //       id: item.id,
-    //       name: item.name
-    //     })
-    //   });
-    //   _this.listLine = d;
-    //   console.log('d', d.length);
-
-    // });
-    _this.goOn(selBLine,10);
-  }
-
-    //查询公交实时信息
-  @action goOn(selBLine,selBStop) {
-    const _this = this;
-    _this.selBStop = selBStop;
 
     http.get('/getLine', {
-      act: 'busTime', selBLine: selBLine, selBDir: this.selBDir, selBStop: this.selBStop
+      act: 'getDirStationOption', selBLine: _this.selBLine, selBDir: this.selBDir
+    }).then(function (data) {
+      _this.goOn(data.data.length);
+    });
+  }
+
+  //查询公交实时信息
+  @action goOn(selBStop) {
+    const _this = this;
+    _this.selBStop = selBStop;
+    http.get('/getLine', {
+      act: 'busTime', selBLine: _this.selBLine, selBDir: this.selBDir, selBStop: this.selBStop
     }).then(function (data) {
       const d = [];
       data.data.list.map((item, index)=> {
