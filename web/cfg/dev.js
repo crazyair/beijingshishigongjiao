@@ -9,17 +9,21 @@ let defaultSettings = require('./defaults');
 let BowerWebpackPlugin = require('bower-webpack-plugin');
 
 let config = Object.assign({}, baseConfig, {
-  entry: [
-    'webpack-dev-server/client?http://127.0.0.1:' + defaultSettings.port,
-    'webpack/hot/only-dev-server',
-    './src/index'
-  ],
+  entry: {
+    app: [
+      'webpack-dev-server/client?http://127.0.0.1:' + defaultSettings.port,
+      'webpack/hot/only-dev-server',
+      './src/index'
+    ],
+    vendor:['react','react-dom','react-router','lodash','axios','react-storage']
+  },
   cache: true,
   devtool: 'eval-source-map',
   plugins: [
     new webpack.ProvidePlugin({
       _: 'lodash'
     }),
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"development"'

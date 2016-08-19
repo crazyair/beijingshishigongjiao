@@ -23,7 +23,19 @@ class Main extends React.Component {
         return n;
       }
     });
-    this.state.list = data;
+    let filterData = [];
+    if (value) {
+      data.map((item, index)=> {
+        if (index < 10) {
+          filterData.push({
+            id: item.id,
+            name: item.name
+          });
+        }
+      });
+    }
+    this.state.list = filterData;
+
     this.setState({list: this.state.list});
 
   }
