@@ -113,6 +113,32 @@ app.get('/getLine', function (req, res, next) {
                     }
                 })
             }
+            if (type == 'busTime') {
+                const lists = $('.inquiry_main .fixed li');
+                const items = [];
+                lists.each(function (i, element) {
+                    const id = $(this).find('.sicon').parent().attr('id');
+                    const item = $(this).find(`#${id}`);
+                    const metre = item.parent().prev().find(`#${id}m`);
+
+                    if (id) { // 确定 items 的条数 
+                        items.push({
+                            id: id,
+                            name: item.find('span').attr('title'),
+                            active: item.find('span').attr('style') ? 'active' : '',
+                            isDZ: item.find('.buss').attr('clstag') == -1 ? true : false,
+                            metre: metre.find('.busc').attr('clstag')
+                        });
+                    }
+                })
+                const dataBus = {
+                    numRoad: $('.inquiry_header #lh').text()
+                    , numRoadDec: $('.inner #lm').text()
+                    , numRoadDec2: $('.inner article').text()
+                    , numRoadList: items
+                }
+                return res.send(JSON.stringify(dataBus));
+            }
             res.send(list);
         })
 });

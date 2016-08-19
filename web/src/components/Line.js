@@ -26,7 +26,7 @@ class Line extends React.Component {
   }
 
   goClick(item, e) {
-    this.store.goOn(item);
+    this.store.goOn(item,this.props.params.id);
   }
 
   render() {
