@@ -41,60 +41,43 @@ class Line {
   @action getList(selBLine, selBDir) {
     this.selBDir = selBDir;
     const _this = this;
-    http.get('/getLine', {act: 'getDirStationOption', selBLine: selBLine, selBDir: selBDir}).then(function (data) {
-      const d = [];
-      data.data.map((item, index)=> {
-        d.push({
-          id: item.id,
-          name: item.name
-        })
-      });
-      _this.listLine = d;
-    });
+    // http.get('/getLine', {act: 'getDirStationOption', selBLine: selBLine, selBDir: selBDir}).then(function (data) {
+    //   const d = [];
+    //   data.data.map((item, index)=> {
+    //     d.push({
+    //       id: item.id,
+    //       name: item.name
+    //     })
+    //   });
+    //   _this.listLine = d;
+    //   console.log('d', d.length);
+
+    // });
+    _this.goOn(selBLine,10);
   }
 
-  @action goOn(data, selBLine) {
-    const _this = this;
-    const d = [];
-    this.listLine.map((item, index)=> {
-      d.push({
-        id: item.id,
-        name: item.name
-      });
-      if (data.id == item.id) {
-        d[index].msg = '上车站';
-        _this.selBStop = item.id;
-      }
-    });
-    this.listLine = d;
     //查询公交实时信息
-    // act=busTime&selBLine=1&selBDir=5276138694316562750&selBStop=1
-    // act:busTime
-    // selBLine:1
-    // selBDir:5276138694316562750
-    // selBStop:1
+  @action goOn(selBLine,selBStop) {
+    const _this = this;
+    _this.selBStop = selBStop;
 
     http.get('/getLine', {
-      act: 'busTime',
-      selBLine: selBLine,
-      selBDir: this.selBDir,
-      selBStop: this.selBStop
+      act: 'busTime', selBLine: selBLine, selBDir: this.selBDir, selBStop: this.selBStop
     }).then(function (data) {
       const d = [];
-      data.data.map((item, index)=> {
+      data.data.list.map((item, index)=> {
         d.push({
           id: item.id,
-          name: item.name
+          name: item.name,
+          active: item.active,
+          isDZ: item.isDZ,
+          metre: item.metre
         })
       });
       _this.listLine = d;
     });
   }
 
-
-  @action getAll(data) {
-    return http.get('/getLine', data);
-  }
 }
 
 

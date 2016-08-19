@@ -26,7 +26,7 @@ class Line extends React.Component {
   }
 
   goClick(item, e) {
-    this.store.goOn(item,this.props.params.id);
+    this.store.goOn(this.props.params.id,item.id);
   }
 
   render() {
@@ -53,7 +53,7 @@ class Line extends React.Component {
           <List.Body>
             {this.store.listLine.map((item, index) =>
               <List.Item key={index} extra={item.msg} arrow="horizontal" onClick={this.goClick.bind(this, item)}>
-                {item.name}
+                {item.name}{JSON.stringify(item)}
               </List.Item>
             )}
           </List.Body>
