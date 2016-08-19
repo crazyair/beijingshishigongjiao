@@ -1,5 +1,4 @@
 import Storage from  'react-storage';
-import {browserHistory} from 'react-router'
 
 export function set(name, data) {
   Storage.set(name, JSON.stringify(data));

@@ -85,9 +85,35 @@ function get(params, ck) {
 app.get('/getLine', function (req, res, next) {
     const ck = req.headers.ck;
     const params = url.parse(req.url).search;
+    const type = req.query.act;
+    const list = [];
     get(params, ck)
         .end(function (err, sres) {
-            res.send(sres);
+            var $ = cheerio.load(sres.text);
+            //查询公交上下行
+            if (type == 'getLineDirOption') {
+                $('option').each(function (idx, element) {
+                    var el = $(element);
+                    if (el.attr('value')) {
+                        list.push({
+                            id: el.attr('value'),
+                            name: el.text()
+                        })
+                    }
+                })
+            }
+            if (type == 'getDirStationOption') {
+                $('option').each(function (idx, element) {
+                    var el = $(element);
+                    if (el.attr('value')) {
+                        list.push({
+                            id: el.attr('value'),
+                            name: el.text()
+                        })
+                    }
+                })
+            }
+            res.send(list);
         })
 });
 

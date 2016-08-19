@@ -5,7 +5,7 @@ import {render} from 'react-dom'
 import App from './components/Main';
 import Store from './stores/Store';
 import {Router, Route, Link, hashHistory} from 'react-router';
-// import {createHashHistory} from 'history'
+
 // import {List, Main} from './containers';
 import * as con from './containers';
 import * as rou from './router';

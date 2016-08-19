@@ -2,7 +2,7 @@ import React from 'react';
 import {observer} from 'mobx-react';
 import {SearchBar, List} from 'antd-mobile';
 import {createForm} from 'rc-form';
-import {browserHistory, History,hashHistory} from 'react-router'
+import { History,hashHistory} from 'react-router'
 @observer
 class Main extends React.Component {
   constructor(props) {
@@ -42,12 +42,7 @@ class Main extends React.Component {
 
   goClick(item, e) {
     // getLineDirOption
-    // browserHistory.push('/line', {id: item.id});
-    hashHistory.push(`line/${item.id}`);
-
-    console.log('hashHistory', hashHistory);
-    console.log('History', History);
-    // console.log('item', item);
+    hashHistory.push(`line/${item.name}`);
 
   }
 
@@ -56,7 +51,7 @@ class Main extends React.Component {
   }
 
   render() {
-    const {getFieldProps} = this.props.form;  
+    const {getFieldProps} = this.props.form;
     let ck = '';
     if (this.store.ckData) {
       ck = this.store.ckData.ck;

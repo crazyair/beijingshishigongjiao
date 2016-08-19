@@ -6,7 +6,7 @@ export  default class Line extends Component {
   render() {
     return (
       <div>
-        <com.Line store={store}/>
+        <com.Line store={store} {...this.props}/>
       </div>
     )
   }

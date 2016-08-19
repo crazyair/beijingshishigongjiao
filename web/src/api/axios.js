@@ -15,7 +15,7 @@ if (env.isProduction) {
 let instance = axios.create({
   baseURL: baseUrl,
   timeout: 1000 * 50,
-  headers: {'ck': get('ck')||''},
+  // headers: {'ck': get('ck')||''},
   validateStatus: status => {
     // 如果是200和299之间 就不处理后面
     if (status >= 200 && status < 300) {
@@ -71,7 +71,7 @@ instance.interceptors.response.use(function (response) {
 
 const http = {
   init() {
-    // instance.defaults.headers = {'ck': 12222};
+    instance.defaults.headers = {'ck':  get('ck')||''};
   },
   get(url, data) {
     this.init();

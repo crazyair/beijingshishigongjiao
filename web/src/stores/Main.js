@@ -11,14 +11,18 @@ class Main {
     const _this = this;
     if (!get('ck')) {
       http.get('getCk').then(function (data) {
-        set('ck', data.data);
+        set('ck', data.data.ck);
+        set('ckLine', data.data.line);
         _this.ckData = data.data;
       })
     }
-    this.ckData = get('ck');
+    this.ckData = {
+      ck: get('ck'),
+      line: get('ckLine')
+    }
   }
 
-  @action getLine(type,lineNum) {
+  @action getLine(type, lineNum) {
     http.get('/getLine', {act: 'getLineDirOption', selBLine: lineNum}).then(function (data) {
       console.log('data', data);
     });
