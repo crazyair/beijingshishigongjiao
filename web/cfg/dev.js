@@ -7,7 +7,7 @@ let defaultSettings = require('./defaults');
 
 // Add needed plugins here
 let BowerWebpackPlugin = require('bower-webpack-plugin');
-
+let HtmlWebpackPlugin = require('html-webpack-plugin');
 let config = Object.assign({}, baseConfig, {
   entry: {
     app: [
@@ -20,6 +20,11 @@ let config = Object.assign({}, baseConfig, {
   cache: true,
   devtool: 'eval-source-map',
   plugins: [
+    new HtmlWebpackPlugin({
+      title:'公交实时查询',
+      filename:'./index.html',
+      template:'./src/sources/tpl.html'
+    }),
     new webpack.ProvidePlugin({
       _: 'lodash'
     }),

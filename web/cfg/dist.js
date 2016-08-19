@@ -5,11 +5,17 @@ let webpack = require('webpack');
 
 let baseConfig = require('./base');
 let defaultSettings = require('./defaults');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Add needed plugins here
 let BowerWebpackPlugin = require('bower-webpack-plugin');
 
 let config = Object.assign({}, baseConfig, {
+  output: {
+    path: path.join(__dirname, '/../dist/assets'),
+    filename: '[name].[hash:8].js',
+    publicPath: '/assets/'
+  },
   entry:{
     app:path.join(__dirname, '../src/index'),
     vendor:['react','react-dom','react-router','lodash','axios','react-storage']
@@ -18,6 +24,11 @@ let config = Object.assign({}, baseConfig, {
   // devtool: 'sourcemap',
   devtool: false,
   plugins: [
+    new HtmlWebpackPlugin({
+      title:'北京实时公交查询',
+      filename:'../index.html',
+      template:'./src/sources/tpl.html'
+    }),
     new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'

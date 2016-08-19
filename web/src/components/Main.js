@@ -64,7 +64,7 @@ class Main extends React.Component {
     return (
       <div >
         <SearchBar
-          placeholder='请输入公交1222222222222'
+          placeholder='请输入公交'
           onSubmit={(value) => {
             console.log(`onSubmit${value}`);
           }}
