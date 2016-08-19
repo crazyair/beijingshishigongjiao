@@ -6,7 +6,8 @@ import App from './components/Main';
 import Store from './stores/Store';
 import {Router, Route, Link, hashHistory} from 'react-router';
 // import {createHashHistory} from 'history'
-import {List, Main} from './containers';
+// import {List, Main} from './containers';
+import * as con from './containers';
 import * as rou from './router';
 const store = new Store();
 
@@ -49,11 +50,13 @@ class test extends React.Component {
 
 render((
   <Router history={hashHistory}>
-    <Route path="/" component={Main}/>
+    <Route path="/" component={con.Main}/>
+    <Route path="/line(/:id)" component={con.Line}/>
     <Route path="/lndex" component={rou.Router}>
       {/*<Route path="main" component={Main}/>*/}
+
       <Route path="test" component={test}>
-        <Route path="list" component={List}/>
+        <Route path="list" component={con.List}/>
         <Route path="/user/:userId" component={User}/>
       </Route>
     </Route>
