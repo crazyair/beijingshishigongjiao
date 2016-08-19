@@ -43,7 +43,7 @@ class Main extends React.Component {
   goClick(item, e) {
     // getLineDirOption
     // browserHistory.push('/line', {id: item.id});
-    hashHistory.push(`/line/${item.id}`);
+    hashHistory.push(`line/${item.id}`);
 
     console.log('hashHistory', hashHistory);
     console.log('History', History);
@@ -56,7 +56,7 @@ class Main extends React.Component {
   }
 
   render() {
-    const {getFieldProps} = this.props.form;
+    const {getFieldProps} = this.props.form;  
     let ck = '';
     if (this.store.ckData) {
       ck = this.store.ckData.ck;
