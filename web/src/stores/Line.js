@@ -17,7 +17,7 @@ class Line {
   @action getLine(selBLine) {
     this.selBLine = selBLine;
     const _this = this;
-    http.get('/getLine', {act: 'getLineDirOption', selBLine: _this.selBLine}).then(function (data) {
+    http.get('/lines', {act: 'getLineDirOption', selBLine: _this.selBLine}).then(function (data) {
       _this.list = data.data;
       _this.selBDir = data.data[0].id;
       _this.getList(_this.selBDir);
@@ -30,7 +30,7 @@ class Line {
     const _this = this;
     this.selBDir = selBDir;
 
-    http.get('/getLine', {
+    http.get('/lines', {
       act: 'getDirStationOption', selBLine: _this.selBLine, selBDir: this.selBDir
     }).then(function (data) {
       _this.goOn(data.data.length);
@@ -41,7 +41,7 @@ class Line {
   @action goOn(selBStop) {
     const _this = this;
     _this.selBStop = selBStop;
-    http.get('/getLine', {
+    http.get('/lines', {
       act: 'busTime', selBLine: _this.selBLine, selBDir: this.selBDir, selBStop: this.selBStop
     }).then(function (data) {
       const d = [];

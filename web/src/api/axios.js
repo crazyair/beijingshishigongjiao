@@ -5,11 +5,17 @@ import {browserHistory} from 'react-router'
 
 import * as env from '../utils/env'
 let baseUrl = '';
+// if (env.isDev) {
+//   baseUrl = 'http://localhost:8081';
+// }
+// if (env.isProduction) {
+//   baseUrl = 'https://afternoon-everglades-19740.herokuapp.com';
+// }
 if (env.isDev) {
-  baseUrl = 'http://localhost:8081';
+  baseUrl = 'http://localhost:3000';
 }
 if (env.isProduction) {
-  baseUrl = 'https://afternoon-everglades-19740.herokuapp.com';
+  baseUrl = 'https://beijingshishigongjiao.herokuapp.com';
 }
 
 let instance = axios.create({

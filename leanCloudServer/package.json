@@ -24,5 +24,9 @@
   },
   "engines": {
     "node": "4.x"
+  },
+  "devDependencies": {
+    "cheerio": "^0.20.0",
+    "superagent": "^2.2.0"
   }
 }
