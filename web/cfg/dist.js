@@ -14,7 +14,7 @@ let config = Object.assign({}, baseConfig, {
   output: {
     path: path.join(__dirname, '/../dist/assets'),
     filename: '[name].[hash:8].js',
-    publicPath: '/assets/'
+    publicPath: './assets/'
   },
   entry:{
     app:path.join(__dirname, '../src/index'),
