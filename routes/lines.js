@@ -1,49 +1,79 @@
 'use strict';
 var router = require('express').Router();
 var AV = require('leanengine');
+var cheerio = require('cheerio');
+var superagent = require('superagent');
+var url = require('url');
 
-// `AV.Object.extend` 方法一定要放在全局变量，否则会造成堆栈溢出。
-// 详见： https://leancloud.cn/docs/js_guide.html#对象
-var Line = AV.Object.extend('Line');
-
-// 查询 Todo 列表
+var baseUrl = 'http://www.bjbus.com/home/ajax_search_bus_stop_token.php';
+function get(params, ck) {
+  return superagent.get(baseUrl + params)
+    .withCredentials()
+    // .send(data)
+    .set('X-Requested-With', 'XMLHttpRequest')
+    .set('Cookie', ck)
+}
 router.get('/', function (req, res, next) {
-  var query = new AV.Query(Line);
-  query.descending('createdAt');
-  query.find().then(function (results) {
-    res.render('lines', {
-      title: 'TODO 列表22222',
-      lines: results
-    });
-  }, function (err) {
-    if (err.code === 101) {
-      // 该错误的信息为：{ code: 101, message: 'Class or object doesn\'t exists.' }，说明 Todo 数据表还未创建，所以返回空的 Todo 列表。
-      // 具体的错误代码详见：https://leancloud.cn/docs/error_code.html
-      res.render('lines', {
-        title: 'TODO 列表111',
-        lines: []
-      });
-    } else {
-      next(err);
-    }
-  }).catch(next);
-});
+  const ck = req.headers.ck;
+  const params = url.parse(req.url).search;
+  const type = req.query.act;
+  const list = [];
+  get(params, ck)
+    .end(function (err, sres) {
+      var $ = cheerio.load(sres.text);
+      //查询公交上下行
+      if (type == 'getLineDirOption') {
+        $('option').each(function (idx, element) {
+          var el = $(element);
+          if (el.attr('value')) {
+            list.push({
+              id: el.attr('value'),
+              name: el.text()
+            })
+          }
+        })
+      }
+      if (type == 'getDirStationOption') {
+        $('option').each(function (idx, element) {
+          var el = $(element);
+          if (el.attr('value')) {
+            list.push({
+              id: el.attr('value'),
+              name: el.text()
+            })
+          }
+        })
+      }
+      if (type == 'busTime') {
+        const html = JSON.parse(sres.text).html;
+        $ = cheerio.load(html);
+        const lists = $('.inquiry_main .fixed li');
+        const items = [];
+        lists.each(function (i, element) {
+          const id = $(this).find('.sicon').parent().attr('id');
+          const item = $(this).find(`#${id}`);
+          const metre = item.parent().prev().find(`#${id}m`);
 
-
-
-
-
-
-
-
-// 新增 Todo 项目
-router.post('/', function (req, res, next) {
-  var content = req.body.content;
-  var line = new Line();
-  line.set('content', content);
-  line.save().then(function (todo) {
-    res.redirect('/lines'); 1
-  }).catch(next);
-});
+          if (id) { // 确定 items 的条数 
+            items.push({
+              id: id,
+              name: item.find('span').attr('title'),
+              active: item.find('span').attr('style') ? 'active' : '',
+              isDZ: item.find('.buss').attr('clstag') == -1 ? true : false,
+              metre: metre.find('.busc').attr('clstag')
+            });
+          }
+        })
+        const dataBus = {
+          road: $('.inquiry_header #lh').text()
+          , roadName: $('.inner #lm').text()
+          , roadMsg: $('.inner article').text()
+          , list: items
+        }
+        return res.send(JSON.stringify(dataBus));
+      }
+      res.send(list);
+    })
+})
 
 module.exports = router;
