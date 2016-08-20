@@ -16,17 +16,15 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "1.12.3",
+    "cheerio": "^0.20.0",
     "connect-timeout": "^1.7.0",
     "cookie-parser": "^1.3.5",
     "ejs": "2.3.1",
     "express": "4.12.3",
-    "leanengine": "^1.0.0-beta"
+    "leanengine": "^1.0.0-beta",
+    "superagent": "^2.2.0"
   },
   "engines": {
     "node": "4.x"
-  },
-  "devDependencies": {
-    "cheerio": "^0.20.0",
-    "superagent": "^2.2.0"
   }
 }
