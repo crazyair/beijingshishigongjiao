@@ -1,10 +1,10 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {FloatMenu, Button, NavBar, Icon, WhiteSpace, Tabs, List} from 'antd-mobile';
+import {FloatMenu, Button, NavBar, Icon, WhiteSpace, Tabs, List, Toast} from 'antd-mobile';
 const TabPane = Tabs.TabPane;
 const Item = FloatMenu.Item;
 import {createForm} from 'rc-form';
-import {History, hashHistory} from 'react-router'
+import {hashHistory} from 'react-router'
 @observer
 class Line extends React.Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class Line extends React.Component {
       listLine: [] // 上下行车站
     };
     this.callback = this.callback.bind(this);
+    this.ogBack = this.ogBack.bind(this);
   }
 
   componentWillMount() {
@@ -29,31 +30,43 @@ class Line extends React.Component {
     this.store.goOn(item.id);
   }
 
+  ogBack() {
+    hashHistory.push('/');
+    console.log('this', this);
+  }
+
   render() {
 
     return (
       <div >
         <NavBar rightContent={
           <div>
-            首页
+            {/*首页*/}
           </div>
-        }>
+        } leftContent="返回" onLeftClick={this.ogBack}
+        >
           公交实时信息
         </NavBar>
         <div>
           {this.store.list.length < 2 ? '' :
             <Tabs defaultActiveKey={this.store.list[0].id} type="capsule" onChange={this.callback}>
               {this.store.list.map((item, index)=>
-                <TabPane tab="上行" key={item.id}></TabPane>
+                <TabPane tab={item.type} key={item.id}></TabPane>
               )}
             </Tabs>
           }
         </div>
+
+
+        {this.store.listLineBase.road}
+        {this.store.listLineBase.roadMsg}
+        {this.store.listLineBase.roadName}
+
         <List>
           <List.Body>
             {this.store.listLine.map((item, index) =>
               <List.Item key={index} extra={item.msg} arrow="horizontal" onClick={this.goClick.bind(this, item)}>
-                {item.name}{JSON.stringify(item)}
+                {item.id} {item.name}{JSON.stringify(item)}
               </List.Item>
             )}
           </List.Body>

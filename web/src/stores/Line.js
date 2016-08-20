@@ -1,12 +1,14 @@
 import {observable, computed, action} from  'mobx';
 import {get, set} from '../utils/local';
 import http from '../api/axios';
-
+import {Toast} from 'antd-mobile';
+import {History, hashHistory} from 'react-router'
 class Line {
   name = 'Line';
   //上下行名字
   @observable list = []; //公交上下行名字
   @observable listLine = [];//公交站牌List
+  @observable listLineBase = {};//公交站牌Base
 
   //参数
   @observable selBLine = 0;//公交线路
@@ -17,8 +19,20 @@ class Line {
   @action getLine(selBLine) {
     this.selBLine = selBLine;
     const _this = this;
+
     http.get('/lines', {act: 'getLineDirOption', selBLine: _this.selBLine}).then(function (data) {
-      _this.list = data.data;
+      if (!data)return;
+      const d = [];
+      data.data.map((item, index)=> {
+        d.push({
+          id: item.id,
+          name: item.name,
+          type: index == 0 ? '上行' : '下行'
+        });
+      });
+      _this.list = d;
+      console.log('data', d);
+
       _this.selBDir = data.data[0].id;
       _this.getList(_this.selBDir);
       // _this.goOn(5);
@@ -33,7 +47,11 @@ class Line {
     http.get('/lines', {
       act: 'getDirStationOption', selBLine: _this.selBLine, selBDir: this.selBDir
     }).then(function (data) {
+      if (!data)return;
       _this.goOn(data.data.length);
+      Toast.loading('加载中...', 0.5, () => {
+
+      });
     });
   }
 
@@ -44,6 +62,7 @@ class Line {
     http.get('/lines', {
       act: 'busTime', selBLine: _this.selBLine, selBDir: this.selBDir, selBStop: this.selBStop
     }).then(function (data) {
+      if (!data)return;
       const d = [];
       data.data.list.map((item, index)=> {
         d.push({
@@ -54,6 +73,7 @@ class Line {
           metre: item.metre
         })
       });
+      _this.listLineBase = data.data;
       _this.listLine = d;
     });
   }

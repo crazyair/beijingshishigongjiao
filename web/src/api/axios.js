@@ -1,16 +1,9 @@
 import axios from 'axios';
-import {get,set} from '../utils/local';
-
-import {browserHistory} from 'react-router'
-
+import {get, set} from '../utils/local';
+import {Toast, WhiteSpace, WingBlank, Button} from 'antd-mobile';
+import {hashHistory} from 'react-router'
 import * as env from '../utils/env'
 let baseUrl = '';
-// if (env.isDev) {
-//   baseUrl = 'http://localhost:8081';
-// }
-// if (env.isProduction) {
-//   baseUrl = 'https://afternoon-everglades-19740.herokuapp.com';
-// }
 if (env.isDev) {
   baseUrl = 'http://localhost:3000';
 }
@@ -29,13 +22,10 @@ let instance = axios.create({
     }
     switch (status) {
       case 404:
-        // message.error('错误代码：404 ！');
+        Toast.offline('错误代码：404 ！');
         break;
       case 500:
-        // message.error('错误代码：500 ！');
-        break;
-      case 502:
-        // message.error('错误代码：502 ！');
+        Toast.offline('错误代码：500 ！');
         break;
     }
   }
@@ -46,6 +36,12 @@ instance.interceptors.request.use(function (config) {
 });
 //响应
 instance.interceptors.response.use(function (response) {
+  if (response.data.length == 0) {
+    Toast.fail('数据丢失,重新查询');
+    hashHistory.push('/');
+    return undefined;
+  }
+
   //所有不是正确的请求都写本地存储
   if (response.data.status != 200) {
     // let error = {
@@ -59,25 +55,26 @@ instance.interceptors.response.use(function (response) {
       return response;
     case 2:
       // message.error(response.data.data);
+      Toast.offline(response.data.data);
       return undefined;
     case 9:
       //tokenId过期
       Storage.set('user', '');
-      browserHistory.push('/login');
+      // browserHistory.push('/login');
       return undefined;
 
   }
 
   return response;
 }, function (error) {
-  // message.error('系统错误！');
+  Toast.offline('系统错误！');
   return Promise.reject(error);
 });
 
 
 const http = {
   init() {
-    instance.defaults.headers = {'ck':  get('ck')||''};
+    instance.defaults.headers = {'ck': get('ck') || ''};
   },
   get(url, data) {
     this.init();
