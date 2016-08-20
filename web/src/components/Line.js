@@ -68,7 +68,7 @@ class Line extends React.Component {
             {this.store.listLine.map((item, index) =>
               <List.Item key={index} extra={type(item).name} arrow={type(item).type}
                          onClick={this.goClick.bind(this, item)}>
-                {item.id} {item.name}
+                {item.id} {item.name}{item.metre}
               </List.Item>
             )}
           </List.Body>

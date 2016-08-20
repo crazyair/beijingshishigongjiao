@@ -38,6 +38,8 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function (response) {
   if (response.data.length == 0) {
     Toast.fail('数据丢失,重新查询');
+    set('ck', '');
+    set('ckLine', '');
     hashHistory.push('/');
     return undefined;
   }
