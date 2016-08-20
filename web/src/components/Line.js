@@ -56,17 +56,19 @@ class Line extends React.Component {
             </Tabs>
           }
         </div>
-
-
-        {this.store.listLineBase.road}
-        {this.store.listLineBase.roadMsg}
-        {this.store.listLineBase.roadName}
+        <p>
+          {this.store.listLineBase.road} {this.store.listLineBase.roadName}
+        </p>
+        <p style={{height: 80}}>
+          {this.store.listLineBase.roadMsg}
+        </p>
 
         <List>
           <List.Body>
             {this.store.listLine.map((item, index) =>
-              <List.Item key={index} extra={item.msg} arrow="horizontal" onClick={this.goClick.bind(this, item)}>
-                {item.id} {item.name}{JSON.stringify(item)}
+              <List.Item key={index} extra={type(item).name} arrow={type(item).type}
+                         onClick={this.goClick.bind(this, item)}>
+                {item.id} {item.name}
               </List.Item>
             )}
           </List.Body>
@@ -75,6 +77,29 @@ class Line extends React.Component {
       </div>
     );
   }
+}
+
+function type(item) {
+  let d = {};
+  if (item.active == 'active') {
+    d = {
+      type: 'up',
+      name: d.name || '' + '等车站牌'
+    };
+  }
+  if (item.metre > 0) {
+    d = {
+      type: 'down',
+      name: d.name || '' + '进入下一站'
+    };
+  }
+  if (item.isDZ) {
+    d = {
+      type: 'horizontal',
+      name: d.name || '' + '已经到站'
+    };
+  }
+  return d;
 }
 
 Line.defaultProps = {};
