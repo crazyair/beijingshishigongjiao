@@ -4,7 +4,8 @@
   "description": "A sample Node.js app using Express 4",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "lean-up": "lean up"
   },
   "keywords": [
     "node",
