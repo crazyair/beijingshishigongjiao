@@ -3,7 +3,7 @@ var router = require('express').Router();
 var AV = require('leanengine');
 var cheerio = require('cheerio');
 var superagent = require('superagent');
-var url = require('url');
+// var url = require('url');
 
 router.get('/', function (req, res, next) {
     superagent.get('http://www.bjbus.com/home/index.php')
