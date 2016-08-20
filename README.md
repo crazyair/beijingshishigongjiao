@@ -1,3 +1,4 @@
+# 用别人的东西 没办法！！
 # Node.js Getting started  kas
 
 一个简单的使用 Express 4 的 Node.js 应用。
