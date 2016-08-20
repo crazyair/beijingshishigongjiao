@@ -15,7 +15,7 @@ if (env.isDev) {
   baseUrl = 'http://localhost:3000';
 }
 if (env.isProduction) {
-  baseUrl = 'https://beijingshishigongjiao.herokuapp.com';
+  baseUrl = 'http://beijingshishigongjiao.herokuapp.com';
 }
 
 let instance = axios.create({
