@@ -21,7 +21,17 @@ class Line {
     const _this = this;
 
     http.get('/lines', {act: 'getLineDirOption', selBLine: _this.selBLine}).then(function (data) {
-      if (!data)return;
+      if (!data) {
+        http.get('ck').then(function (data) {
+          if (data.data.ck) {
+            set('ck', data.data.ck);
+            set('ckLine', data.data.line);
+            _this.getLine(_this.selBLine);
+          }
+        });
+        return;
+      }
+      // if (!data)return;
       const d = [];
       data.data.map((item, index)=> {
         d.push({
