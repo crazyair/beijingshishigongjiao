@@ -10,10 +10,12 @@ class Main {
   @action getCk() {
     const _this = this;
     if (!get('ck')) {
-      http.get('getCk').then(function (data) {
-        set('ck', data.data.ck);
-        set('ckLine', data.data.line);
-        _this.ckData = data.data;
+      http.get('ck').then(function (data) {
+        if (data.data.ck) {
+          set('ck', data.data.ck);
+          set('ckLine', data.data.line);
+          _this.ckData = data.data;
+        }
       })
     }
     this.ckData = {

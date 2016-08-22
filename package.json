@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "gh": "git subtree push --prefix=web/dist origin gh-pages",
+    "AV": "git subtree push --prefix=leanCloudServer origin AV",
     "publish": "git subtree push --prefix=server heroku master"
   },
   "repository": {
