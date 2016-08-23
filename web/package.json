@@ -53,6 +53,7 @@
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "minimist": "^1.2.0",
+    "mobx-react-devtools": "^4.2.4",
     "mocha": "^3.0.0",
     "null-loader": "^0.1.1",
     "open": "0.0.5",
