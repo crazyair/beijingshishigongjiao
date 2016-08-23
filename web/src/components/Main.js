@@ -82,7 +82,7 @@ class Main extends React.Component {
           onChange={(value)=>this.onSearch(value)}
         />
         <List>
-          <List.Header>查找</List.Header>
+          {/*<List.Header>查找</List.Header>*/}
           <List.Body>
             {this.state.list.map((item, index) =>
               <List.Item key={index} extra={''} arrow="horizontal" onClick={this.goClick.bind(this, item)}>

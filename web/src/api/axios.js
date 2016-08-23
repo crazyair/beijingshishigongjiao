@@ -37,10 +37,10 @@ instance.interceptors.request.use(function (config) {
 //响应
 instance.interceptors.response.use(function (response) {
   if (response.data.length == 0) {
-    Toast.fail('数据丢失,重新查询');
-    set('ck', '');
-    set('ckLine', '');
-    hashHistory.push('/');
+    // Toast.success('数据丢失,已重新查询');
+    // set('ck', '');
+    // set('ckLine', '');
+    // hashHistory.push('/');
     return undefined;
   }
 
