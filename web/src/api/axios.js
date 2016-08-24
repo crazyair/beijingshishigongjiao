@@ -5,7 +5,7 @@ import {hashHistory} from 'react-router'
 import * as env from '../utils/env'
 let baseUrl = '';
 if (env.isDev) {
-  baseUrl = 'http://localhost:3000';
+  baseUrl = 'http://localhost:3003';
 }
 if (env.isProduction) {
   baseUrl = 'http://beijingshishigongjiao.leanapp.cn';
