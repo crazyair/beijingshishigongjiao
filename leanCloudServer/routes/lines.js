@@ -11,7 +11,7 @@ function get(params, ck) {
     .withCredentials()
     // .send(data)
     .set('X-Requested-With', 'XMLHttpRequest')
-    .set('Cookie', ck)
+    .set('Cookie', ck||"")
 }
 
 //  Hm_lvt_2c630339360dacc1fc1fd8110f283748=1471445682,1471529338,1471615890,1471676488;
