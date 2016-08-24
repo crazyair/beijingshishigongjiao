@@ -6,6 +6,7 @@ console.log('config', config);
 class Main {
   name = 'Main';
 
+
   @observable ckData = [];
 
   @action getCk() {
