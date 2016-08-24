@@ -6,7 +6,7 @@ var superagent = require('superagent');
 var url = require('url');
 
 var baseUrl = 'http://www.bjbus.com/home/ajax_search_bus_stop_token.php';
-function get(params, ck) {
+function get(params, ck="") {
   return superagent.get(baseUrl + params)
     .withCredentials()
     // .send(data)
