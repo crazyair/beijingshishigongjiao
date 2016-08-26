@@ -2,7 +2,7 @@ import React from 'react';
 import {observer} from 'mobx-react';
 import {SearchBar, List} from 'antd-mobile';
 import {createForm} from 'rc-form';
-import { History,hashHistory} from 'react-router'
+import {History, hashHistory, browserHistory,withRouter } from 'react-router'
 @observer
 class Main extends React.Component {
   constructor(props) {
@@ -42,8 +42,21 @@ class Main extends React.Component {
 
   goClick(item, e) {
     // getLineDirOption
-    hashHistory.push(`line/${item.name}`);
+    // hashHistory.push(`line/${item.name}`);
+    // hashHistory.push(`l/${item.name}`);
+    console.log('this', this.props);
+    // this.props.router.push({
+    //   pathname: '/l',
+    //   query: {
+    //     id: item.name
+    //   }
+    // });
+    // this.props.router.push(`l/${item.name}`)
+    // this.props.router.push('l');
 
+    // hashHistory.push(`l/${item.name}/${item.name}/${item.name}`);
+    // this.props.history.push(`l/${item.name}/${item.name}/${item.name}`);
+    this.props.router.push(`l/${item.name}/${item.name}/${item.name}`);
   }
 
   componentWillReceiveProps(nextProps) {

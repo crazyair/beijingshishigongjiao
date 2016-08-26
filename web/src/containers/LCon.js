@@ -2,16 +2,14 @@ import React, {Component, PropTypes} from 'react'
 import * as Store from '../stores'
 import * as com from '../components';
 import { withRouter } from 'react-router'
-const store = new Store.Main();
-class Main extends Component {
+const store = new Store.L();
+ class L extends Component {
   render() {
-    console.log('aa', this);
     return (
       <div>
-        <com.Main store={store} {...this.props}/>
+        <com.L store={store} {...this.props}/>
       </div>
     )
   }
 }
-export default withRouter(Main)
-
+export  default withRouter(L);

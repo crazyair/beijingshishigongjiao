@@ -4,61 +4,23 @@ import ReactDOM from 'react-dom';
 import {render} from 'react-dom'
 import App from './components/Main';
 import Store from './stores/Store';
-import {Router, Route, Link, hashHistory} from 'react-router';
-
-// import {List, Main} from './containers';
+import {Router, Route, Link, hashHistory, useRouterHistory, IndexRoute, Redirect} from 'react-router';
 import * as con from './containers';
 import * as rou from './router';
 const store = new Store();
-
-const Users = React.createClass({
-  render() {
-    return (
-      <div>
-        <h1>Users</h1>
-        <div className="master">
-
-        </div>
-        <div className="detail">
-          {this.props.children}
-        </div>
-      </div>
-    )
-  }
-});
-
-const User = React.createClass({
-  componentDidMount() {
-
-  },
-  render() {
-    return (
-      <div>
-        <h2>111</h2>
-      </div>
-    )
-  }
-});
-class test extends React.Component {
-  render() {
-    return (
-      <App store={store}/>
-    )
-  }
-}
+import {createHashHistory} from 'history'
+const appHistory = useRouterHistory(createHashHistory)({queryKey: false});
 
 
 render((
-  <Router history={hashHistory}>
-    <Route path="/" component={con.Main}/>
-    <Route path="/line(/:id)" component={con.Line}/>
-    <Route path="/lndex" component={rou.Router}>
-      {/*<Route path="main" component={Main}/>*/}
-
-      <Route path="test" component={test}>
-        <Route path="list" component={con.List}/>
-        <Route path="/user/:userId" component={User}/>
-      </Route>
+  <Router history={appHistory}>
+    {/*<Route path="/" component={con.Main}/>*/}
+    <Redirect from='/' to='/search'/>
+    <Route path="/">
+      <IndexRoute component={con.Main}/>
+      <Route path='search' component={con.Main}/>
+      <Route path="line(/:id)" component={con.Line}/>
+      <Route path="l/:id(/:type)(/:num)" component={con.L}/>
     </Route>
   </Router>
 ), document.getElementById('app'));

@@ -2,7 +2,7 @@ import {observable, computed, action} from  'mobx';
 import {get, set} from '../utils/local';
 import http from '../api/axios';
 import  config from  'config';
-console.log('config', config);
+// console.log('config', config);
 class Main {
   name = 'Main';
 
