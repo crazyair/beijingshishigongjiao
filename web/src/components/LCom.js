@@ -19,6 +19,7 @@ class L extends React.Component {
   }
 
   componentWillMount() {
+    console.log('aa', this.props);
     this.store.getLine(this.props.params.id);
   }
 

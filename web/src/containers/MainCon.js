@@ -5,7 +5,6 @@ import { withRouter } from 'react-router'
 const store = new Store.Main();
 class Main extends Component {
   render() {
-    console.log('aa', this);
     return (
       <div>
         <com.Main store={store} {...this.props}/>
