@@ -17,7 +17,7 @@ render((
     <Route path="/">
       <IndexRoute component={con.Main}/>
       <Route path='search' component={con.Main}/>
-      <Route path="l/:id(/:type)(/:num)" component={con.L}/>
+      <Route path="l/:id(/:type)(/:station)" component={con.L}/>
       <Route path="line(/:id)" component={con.Line}/>
     </Route>
   </Router>

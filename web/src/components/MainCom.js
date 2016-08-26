@@ -31,7 +31,7 @@ class Main extends React.Component {
       set('slNum', localData.length);
     }
     if (type == 'local') {
-
+      set('slNum', item.id);
     }
     this.props.router.push(`l/${item.name}/${0}/${0}`);
   }

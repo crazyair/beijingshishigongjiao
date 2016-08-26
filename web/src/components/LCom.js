@@ -4,17 +4,17 @@ import {FloatMenu, Button, NavBar, Icon, WhiteSpace, Tabs, List, Toast} from 'an
 const TabPane = Tabs.TabPane;
 const Item = FloatMenu.Item;
 import {createForm} from 'rc-form';
-import {hashHistory} from 'react-router'
+import {hashHistory} from 'react-router';
+import {get, set} from '../utils/local';
 @observer
 class L extends React.Component {
   constructor(props) {
     super(props);
     this.store = props.store;
     this.state = {
-      list: [],//公交上下行
-      listLine: [] // 上下行车站
+      localIndex:get('slNum')||[0] //如果是别人分享的，就让他保存一条记录吧！
     };
-    this.callback = this.callback.bind(this);
+    this.changeType = this.changeType.bind(this);
     this.ogBack = this.ogBack.bind(this);
   }
 
@@ -23,22 +23,22 @@ class L extends React.Component {
     this.store.getLine(this.props.params.id);
   }
 
-  callback(e) {
-    this.store.getList(e);
+  //切换上下行 type
+  changeType(type) {
+    this.store.getList(type);
   }
 
+  //切换上车点 station
   goClick(item, e) {
     this.store.goOn(item.id);
   }
 
   ogBack() {
-    // console.log('t', this);
-    // hashHistory.push('/');
     this.props.router.push('/search');
   }
 
   render() {
-
+    console.log('this', this.state.localData);
     return (
       <div >
         <NavBar rightContent={
@@ -51,7 +51,7 @@ class L extends React.Component {
         </NavBar>
         <div>
           {this.store.list.length < 2 ? '' :
-            <Tabs defaultActiveKey={this.store.list[0].id} type="capsule" onChange={this.callback}>
+            <Tabs defaultActiveKey={this.store.list[0].id} type="capsule" onChange={this.changeType}>
               {this.store.list.map((item, index)=>
                 <TabPane tab={item.type} key={item.id}></TabPane>
               )}
