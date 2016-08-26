@@ -15,7 +15,7 @@ class L extends React.Component {
       localIndex:get('slNum')||[0] //如果是别人分享的，就让他保存一条记录吧！
     };
     this.changeType = this.changeType.bind(this);
-    this.ogBack = this.ogBack.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   componentWillMount() {
@@ -33,7 +33,7 @@ class L extends React.Component {
     this.store.goOn(item.id);
   }
 
-  ogBack() {
+  goBack() {
     this.props.router.push('/search');
   }
 
@@ -45,7 +45,7 @@ class L extends React.Component {
           <div>
             {/*首页*/}
           </div>
-        } leftContent="返回" onLeftClick={this.ogBack}
+        } leftContent="返回" onLeftClick={this.goBack}
         >
           公交实时信息
         </NavBar>
