@@ -11,7 +11,8 @@ class Main extends React.Component {
     super(props);
     this.store = props.store;
     this.state = {
-      list: []
+      list: [],
+      localList: get('SL') || []
     };
   }
 
@@ -19,14 +20,19 @@ class Main extends React.Component {
     this.store.getCk();
   }
 
-  goClick(item, e) {
-    let localData = get('SL') || [];
-    localData = [
-      ...localData,
-      {id: localData.length + 1, name: item.name}
-    ];
-    set('SL', localData);
-    set('slNum', localData.length);
+  goClick(item, type, e) {
+    if (type === 'search') {
+      let localData = get('SL') || [];
+      localData = [
+        {id: localData.length + 1, name: item.name},
+        ...localData
+      ];
+      set('SL', localData);
+      set('slNum', localData.length);
+    }
+    if (type == 'local') {
+
+    }
     this.props.router.push(`l/${item.name}/${0}/${0}`);
   }
 
@@ -64,7 +70,17 @@ class Main extends React.Component {
           {/*<List.Header>查找</List.Header>*/}
           <List.Body>
             {this.store.searchList.map((item, index) =>
-              <List.Item key={index} extra={''} arrow="horizontal" onClick={this.goClick.bind(this, item)}>
+              <List.Item key={index} extra={''} arrow="horizontal" onClick={this.goClick.bind(this, item, 'search')}>
+                {item.name}
+              </List.Item>
+            )}
+          </List.Body>
+        </List>
+        <List>
+          <List.Header>搜索历史</List.Header>
+          <List.Body>
+            {this.state.localList.map((item, index) =>
+              <List.Item key={index} extra={''} arrow="horizontal" onClick={this.goClick.bind(this, item, 'local')}>
                 {item.name}
               </List.Item>
             )}
