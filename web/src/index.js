@@ -14,13 +14,12 @@ const appHistory = useRouterHistory(createHashHistory)({queryKey: false});
 
 render((
   <Router history={appHistory}>
-    {/*<Route path="/" component={con.Main}/>*/}
     <Redirect from='/' to='/search'/>
     <Route path="/">
       <IndexRoute component={con.Main}/>
       <Route path='search' component={con.Main}/>
-      <Route path="line(/:id)" component={con.Line}/>
       <Route path="l/:id(/:type)(/:num)" component={con.L}/>
+      <Route path="line(/:id)" component={con.Line}/>
     </Route>
   </Router>
 ), document.getElementById('app'));
