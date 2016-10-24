@@ -6,15 +6,15 @@ const Item = FloatMenu.Item;
 import {createForm} from 'rc-form';
 import {hashHistory} from 'react-router';
 import {get, set} from '../utils/local';
-import {format,toTime,getTime} from '../utils/date'
+import {format, toTime, getTime} from '../utils/date'
 @observer
 class L extends React.Component {
   constructor(props) {
     super(props);
     this.store = props.store;
     this.state = {
-      localIndex:get('slNum')||[0] //如果是别人分享的，就让他保存一条记录吧！
-      ,date:''
+      localIndex: get('slNum') || [0] //如果是别人分享的，就让他保存一条记录吧！
+      , date: ''
     };
     this.changeType = this.changeType.bind(this);
     this.goBack = this.goBack.bind(this);
@@ -24,9 +24,17 @@ class L extends React.Component {
     this.store.getLine(this.props.params.id);
     // let date = ;
 
-    setInterval(()=> {
+  }
+
+  componentDidMount() {
+
+    this.date = setInterval(()=> {
       this.setState({date: format(toTime(), 'YYYY-MM-DD hh:mm:ss')});
-    },1000);
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.date);
   }
 
   //切换上下行 type
