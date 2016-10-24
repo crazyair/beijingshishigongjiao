@@ -18,7 +18,7 @@ let config = Object.assign({}, baseConfig, {
   },
   entry:{
     app:path.join(__dirname, '../src/index'),
-    vendor:['react','react-dom','react-router','lodash','axios','react-storage']
+    vendor:['react','react-dom','react-router','lodash','axios','react-storage','moment']
   },
   cache: false,
   // devtool: 'sourcemap',
