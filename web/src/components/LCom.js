@@ -27,7 +27,7 @@ class L extends React.Component {
 
   componentDidMount() {
     this.date = setInterval(()=> {
-      this.setState({date: format(toTime(), 'YYYY-MM-DD hh:mm:ss')});
+      this.setState({date: format(toTime(), 'YYYY-MM-DD HH:mm:ss')});
     }, 1000);
   }
 
