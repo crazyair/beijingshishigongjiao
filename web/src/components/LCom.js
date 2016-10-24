@@ -6,6 +6,7 @@ const Item = FloatMenu.Item;
 import {createForm} from 'rc-form';
 import {hashHistory} from 'react-router';
 import {get, set} from '../utils/local';
+import {format,toTime,getTime} from '../utils/date'
 @observer
 class L extends React.Component {
   constructor(props) {
@@ -13,14 +14,19 @@ class L extends React.Component {
     this.store = props.store;
     this.state = {
       localIndex:get('slNum')||[0] //如果是别人分享的，就让他保存一条记录吧！
+      ,date:''
     };
     this.changeType = this.changeType.bind(this);
     this.goBack = this.goBack.bind(this);
   }
 
   componentWillMount() {
-    console.log('aa', this.props);
     this.store.getLine(this.props.params.id);
+    // let date = ;
+
+    setInterval(()=> {
+      this.setState({date: format(toTime(), 'YYYY-MM-DD hh:mm:ss')});
+    },1000);
   }
 
   //切换上下行 type
@@ -38,7 +44,6 @@ class L extends React.Component {
   }
 
   render() {
-    console.log('this', this.state.localData);
     return (
       <div >
         <NavBar rightContent={
@@ -60,6 +65,9 @@ class L extends React.Component {
         </div>
         <p>
           {this.store.listLineBase.road} {this.store.listLineBase.roadName}
+        </p>
+        <p>
+          {this.state.date}
         </p>
         <p style={{height: 80}}>
           {this.store.listLineBase.roadMsg}
