@@ -22,12 +22,10 @@ class L extends React.Component {
 
   componentWillMount() {
     this.store.getLine(this.props.params.id);
-    // let date = ;
 
   }
 
   componentDidMount() {
-
     this.date = setInterval(()=> {
       this.setState({date: format(toTime(), 'YYYY-MM-DD hh:mm:ss')});
     }, 1000);
