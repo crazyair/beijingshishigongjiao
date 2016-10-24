@@ -53,7 +53,8 @@ class Main extends React.Component {
             }
           }}
           onCancel={() => {
-            {/*console.log('onCancel');*/
+            {
+              this.store.search()
             }
           }}
           onFocus={() => {
@@ -67,24 +68,18 @@ class Main extends React.Component {
           onChange={(value)=>this.store.search(value)}
         />
         <List>
-          {/*<List.Header>查找</List.Header>*/}
-          <List.Body>
-            {this.store.searchList.map((item, index) =>
-              <List.Item key={index} extra={''} arrow="horizontal" onClick={this.goClick.bind(this, item, 'search')}>
-                {item.name}
-              </List.Item>
-            )}
-          </List.Body>
+          {this.store.searchList.map((item, index) =>
+            <List.Item key={index} extra={''} arrow="horizontal" onClick={this.goClick.bind(this, item, 'search')}>
+              {item.name}
+            </List.Item>
+          )}
         </List>
-        <List>
-          <List.Header>搜索历史</List.Header>
-          <List.Body>
-            {this.state.localList.map((item, index) =>
-              <List.Item key={index} extra={''} arrow="horizontal" onClick={this.goClick.bind(this, item, 'local')}>
-                {item.name}
-              </List.Item>
-            )}
-          </List.Body>
+        <List renderHeader={() => '搜索历史'}>
+          {this.state.localList.map((item, index) =>
+            <List.Item key={index} extra={''} arrow="horizontal" onClick={this.goClick.bind(this, item, 'local')}>
+              {item.name}
+            </List.Item>
+          )}
         </List>
       </div>
     );

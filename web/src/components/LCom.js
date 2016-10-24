@@ -1,8 +1,8 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {FloatMenu, Button, NavBar, Icon, WhiteSpace, Tabs, List, Toast} from 'antd-mobile';
+import {Popover, Button, NavBar, Icon, WhiteSpace, Tabs, List, Toast} from 'antd-mobile';
 const TabPane = Tabs.TabPane;
-const Item = FloatMenu.Item;
+const Item = Popover.Item;
 import {createForm} from 'rc-form';
 import {hashHistory} from 'react-router';
 import {get, set} from '../utils/local';
