@@ -75,7 +75,7 @@ class L extends React.Component {
         this.store.goOn(this.state.id).then((type) => {
           if (type) {
             this.setState({num: this.state.num + 1});
-            this.timeout = setTimeout(fetch, 1000);
+            this.timeout = setTimeout(fetch, 5000);
           }
         });
 
