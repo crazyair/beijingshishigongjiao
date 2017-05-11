@@ -33,7 +33,7 @@ class L {
       }
       // if (!data)return;
       const d = [];
-      data.data.map((item, index)=> {
+      data.data.map((item, index) => {
         d.push({
           id: item.id,
           name: item.name,
@@ -68,12 +68,12 @@ class L {
   @action goOn(selBStop) {
     const _this = this;
     _this.selBStop = selBStop;
-    http.get('/lines', {
+    return http.get('/lines', {
       act: 'busTime', selBLine: _this.selBLine, selBDir: this.selBDir, selBStop: this.selBStop
     }).then(function (data) {
       if (!data)return;
       const d = [];
-      data.data.list.map((item, index)=> {
+      data.data.list.map((item, index) => {
         d.push({
           id: item.id,
           name: item.name,
@@ -84,6 +84,7 @@ class L {
       });
       _this.listLineBase = data.data;
       _this.listLine = d;
+      return Promise.resolve(true);
     });
   }
 

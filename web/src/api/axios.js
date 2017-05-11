@@ -10,7 +10,7 @@ if (env.isDev) {
 if (env.isProduction) {
   baseUrl = 'http://beijingshishigongjiao.leanapp.cn';
 }
-
+baseUrl = 'http://beijingshishigongjiao.leanapp.cn';
 let instance = axios.create({
   baseURL: baseUrl,
   timeout: 1000 * 50,
