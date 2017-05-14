@@ -12,8 +12,8 @@ router.get('/', function (req, res, next) {
                 return next(err);
             }
             var ck = sres.header['set-cookie'];
-            ck = ck.join('').replace('path=/', '').replace('Path=/', '');
-
+            // ck = ck.join('').replace('path=/', '').replace('Path=/', '');
+            ck=ck.join(';');
             var $ = cheerio.load(sres.text);
             var items = [];
             $('#selBLine a').each(function (idx, element) {
